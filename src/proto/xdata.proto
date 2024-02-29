@@ -1,0 +1,15 @@
+syntax = "proto2";
+package x_data;
+
+message vector {
+  repeated float vec_value = 1;
+}
+
+message matrix {
+  required int32 t = 1;
+  repeated vector vec = 2;
+}
+
+message full_X {
+  repeated matrix m = 2;
+}

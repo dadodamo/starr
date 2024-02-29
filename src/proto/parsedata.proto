@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package parsedata;
+
+message vector {
+  repeated double vec_value = 1;
+}
+message matrix {
+  repeated vector m_vec = 1;
+}
+message location {
+  required double lat = 1;
+  required double long = 2;
+}
+message input_data {
+  required vector y = 1;
+  required matrix x = 2;
+  repeated location loc = 3;
+  required int64 N = 4;
+  required int64 T = 5;
+}

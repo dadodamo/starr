@@ -1,0 +1,6 @@
+.DS_store
+/src/dataparsed.bin
+/src/build/samples_serialized.bin
+/src/build/y_serialized.bin
+/src/Makefile
+/src/build

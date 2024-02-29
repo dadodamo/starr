@@ -1,0 +1,11 @@
+syntax = "proto2";
+package y_data;
+
+message vector {
+    repeated double vec_value = 2;
+}
+
+message full_y {
+    repeated vector vec_y = 1;
+    required vector fitted_values = 2;
+}

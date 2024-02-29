@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+package sampler_data;
+
+message vector {
+  repeated double vec_value = 1;
+}
+
+message matrix {
+  repeated vector vec = 1;
+}
+
+message samples {
+  repeated matrix o = 1;
+  repeated vector beta = 2;
+  repeated vector mu_0 = 3;
+  repeated double rho = 4;
+  repeated double sigma_w = 5;
+  repeated double sigma_0 = 6;
+  repeated double sigma_eps = 7;
+  repeated double phi = 8;
+}
