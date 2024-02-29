@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 ## External libraries
 #set(EIGEN_DIR "/users/daniel/Desktop/libraries/Eigen3")
 #set(BOOST_DIR "/users/daniel/Desktop/libraries/boost")
-set(H_FILES "/users/daniel/Desktop/libraries/h_files")
+set(H_FILES "${CMAKE_CURRENT_LIST_DIR}/h_files")
 #if(NOT EXISTS ${EIGEN_DIR})
 #    message(FATAL_ERROR "Please check that the set Eigen directory is valid!")
 #endif()
@@ -20,10 +20,7 @@ endif()
 
 #include_directories(${EIGEN_DIR})
 ##include_directories(${BOOST_DIR})
-include_directories(${STAN_DIR})
 include_directories(${H_FILES})
-
-## boost
 
 #find_package(Protobuf REQUIRED)
 
