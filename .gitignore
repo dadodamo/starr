@@ -4,3 +4,5 @@
 /src/build/y_serialized.bin
 /src/Makefile
 /src/build
+.Rproj.user
+.vscode/

@@ -25,10 +25,10 @@ int main(int argc,char* argv[]) {
     std::cout << argv[1] << std::endl;
 
     //argv[2] is nu
-    std::cout << argv[2] << std::endl;
+    // std::cout << argv[2] << std::endl;
 
     //argv[3] & argv[4] are prior a_phi and b_phi from user input
-    std::cout <<"a_phi is: " <<argv[3] << " and b_phi: " << argv[4]<< std::endl;
+    // std::cout <<"a_phi is: " <<argv[3] << " and b_phi: " << argv[4]<< std::endl;
 
     // algo options
     u_int64_t seed = 112083918;
@@ -37,21 +37,27 @@ int main(int argc,char* argv[]) {
 
     ///////// DATA PARSING ///////////
 
-    std::ifstream input(argv[1], std::ios::binary);
-    if (!input) {
-        std::cerr << "Failed to open dataparsed.bin" << std::endl;
-        return 1;
-    }
-    std::stringstream buffer;
-    buffer << input.rdbuf();
-    std::string serialized_data = buffer.str();
+    // std::ifstream input(argv[1], std::ios::binary);
+    // if (!input) {
+    //     std::cerr << "Failed to open dataparsed.bin" << std::endl;
+    //     return 1;
+    // }
+    // std::stringstream buffer;
+    // buffer << input.rdbuf();
+    // std::string serialized_data = buffer.str();
 
-    // Deserialize the data
+    // // Deserialize the data
     parsedata::input_data data;
-    if (!data.ParseFromString(serialized_data)) {
-        std::cerr << "Failed to parse serialized data" << std::endl;
+    // if (!data.ParseFromString(serialized_data)) {
+    //     std::cerr << "Failed to parse serialized data" << std::endl;
+    //     return 1;
+    // }
+    std::fstream input(argv[1], std::ios::in | std::ios::binary);
+    if (!data.ParseFromIstream(&input)) {
+        data.PrintDebugString();
+        std::cerr << "Failed to parse address book." << std::endl;
         return 1;
-    }
+        }
 
     // Accessing the deserialized data
     parsedata::vector y_parse = data.y();
