@@ -60,20 +60,14 @@ include_directories(${BOOST_DIR})
 
 find_package(Protobuf QUIET)
 if(NOT Protobuf_FOUND)
-    message(STATUS "Protobuf not found. Fetching and installing...")
-    include(ExternalProject)
-    set(PROTOBUF_URL https://github.com/protocolbuffers/protobuf/archive/v3.19.0.tar.gz)
-    set(PROTOBUF_HASH SHA256=d43a4fc18d0e8261528b601fd2f085f5c3f98ff3b812b161cb97b7d9dd9e0959)
-    ExternalProject_Add(
+    message(STATUS "Boost not found. Fetching and installing...")
+    include(FetchContent)
+    FetchContent_Declare(
         protobuf
-        PREFIX ${CMAKE_BINARY_DIR}/protobuf
-        URL ${PROTOBUF_URL}
-        URL_HASH ${PROTOBUF_HASH}
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+        URL https://github.com/protocolbuffers/protobuf/releases/download/v25.3/protobuf-25.3.tar.gz
     )
-    ExternalProject_Get_Property(protobuf SOURCE_DIR)
-    set(PROTOBUF_INCLUDE_DIR ${SOURCE_DIR}/src PARENT_SCOPE) # Specify the Protobuf include directory
-    message(STATUS "Protobuf installed.")
+    FetchContent_MakeAvailable(protobuf)
+    message(STATUS "protobuf installed.")
 endif()
 
 ADD_SUBDIRECTORY(proto)
