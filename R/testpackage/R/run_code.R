@@ -57,11 +57,13 @@ run_code <- function(data, response, covariates, IDStations, x,y ,Time , nu = 0.
   }
 
    #create temporary binary file and save it to working src directory
-  DATAPARSED_PATH <- sprintf("%s/src/dataparsed.bin", testpackage_home)
-  file.create(DATAPARSED_PATH)
-  file <- file(DATAPARSED_PATH, open = "wb")
-  serialize(msg_parsedata, file)
-  close(file)
+
+  ## THIS DOESNT WORK
+  # DATAPARSED_PATH <- sprintf("%s/src/dataparsed.bin", testpackage_home)
+  # file.create(DATAPARSED_PATH)
+  # file <- file(DATAPARSED_PATH, open = "wb")
+  # serialize(msg_parsedata, file)
+  # close(file)
 
   # test if it works
   #binary_data <- readBin(DATAPARSED_PATH, "raw", file.info(DATAPARSED_PATH)$size)
