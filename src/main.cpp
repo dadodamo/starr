@@ -22,13 +22,14 @@ void print_vec(std::vector<double>& vector);
 int main(int argc,char* argv[]) {
 
     // argv[1] is the path to parsed data file 
-    std::cout << argv[1] << std::endl;
 
     //argv[2] is nu
-    // std::cout << argv[2] << std::endl;
 
     //argv[3] & argv[4] are prior a_phi and b_phi from user input
-    // std::cout <<"a_phi is: " <<argv[3] << " and b_phi: " << argv[4]<< std::endl;
+
+    //argv[5] is n_iter
+
+    //argv[6] is burn_in
 
     // algo options
     u_int64_t seed = 112083918;
@@ -37,21 +38,9 @@ int main(int argc,char* argv[]) {
 
     ///////// DATA PARSING ///////////
 
-    // std::ifstream input(argv[1], std::ios::binary);
-    // if (!input) {
-    //     std::cerr << "Failed to open dataparsed.bin" << std::endl;
-    //     return 1;
-    // }
-    // std::stringstream buffer;
-    // buffer << input.rdbuf();
-    // std::string serialized_data = buffer.str();
-
-    // // Deserialize the data
+    // // // Deserialize the data
     parsedata::input_data data;
-    // if (!data.ParseFromString(serialized_data)) {
-    //     std::cerr << "Failed to parse serialized data" << std::endl;
-    //     return 1;
-    // }
+    
     std::fstream input(argv[1], std::ios::in | std::ios::binary);
     if (!data.ParseFromIstream(&input)) {
         data.PrintDebugString();
@@ -112,7 +101,6 @@ int main(int argc,char* argv[]) {
             X.push_back(x_t);
         }
 
-
     ///////// DATA PARSING END ////////
 //    Eigen::Map<Eigen::VectorXd> eigenVector(stdVector.data(), stdVector.size());
 
@@ -120,7 +108,6 @@ int main(int argc,char* argv[]) {
 
     ar_model a(Y, X, coord_store_vec, nu);
     a.init();
-    a.standardize();
     unsigned int n_iter = 5000;
     unsigned int burn_in = 1000;
     for(int i = 0; i <burn_in; ++i) {

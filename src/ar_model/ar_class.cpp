@@ -76,10 +76,6 @@ void ar_model::serialize() {
     proto::serialize_y(y_stream);
 }
 
-void ar_model::standardize() {
-    // std_mean_y
-};
-
 void ar_model::write_curr_state(){
     sampler_data::matrix* o_matrix = sample_stream.add_o();
     for (int i = 0; i < o_store.size(); ++i) {

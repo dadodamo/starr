@@ -111,7 +111,6 @@ public:
     );
 
     void init();
-    void standardize();
     void sample();
     void write_curr_state();
 

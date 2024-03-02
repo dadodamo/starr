@@ -1,2 +1,0 @@
-# Set TESTPACKAGE_HOME environment variable
-mkdir -p ./inst && echo TESTPACKAGE_HOME=$PWD > ./inst/testpackage.Renviron
