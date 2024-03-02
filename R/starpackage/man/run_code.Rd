@@ -31,6 +31,8 @@ run_code(
 
 \item{y}{A string containing the column name in \code{data} that specifies the y-coordinate.}
 
+\item{Time}{A string containing the column name in \code{data} that specifies the time variable.}
+
 \item{nu}{A numeric value specifying nu for the Matérn correlation function. If not set, the default value is set to 0.5.}
 
 \item{phi_prior}{a numeric vector of size 2 specifying the prior hyperparameters to be set for phi. If not set, the default value is

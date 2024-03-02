@@ -1,5 +1,5 @@
 Package: starr
-Title: Fit spatio-temporal AR(1) models.
+Title: Fit spatio-temporal AR(1) models
 Version: 0.0.0.9000
 Authors@R: 
     person("Daniel", "Adamovic", , "daniel.adamovic@mail.polimi.it", role = c("aut", "cre"),
@@ -10,4 +10,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
-    RProtoBuf (>= 0.4.20),
+    RProtoBuf

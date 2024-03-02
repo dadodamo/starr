@@ -8,6 +8,7 @@
 #' @param response A string containing the column name in \code{data} corresponding to the response variable.
 #' @param covariates A vector of strings containing the column names in \code{data} that shall be included as covariates.
 #' @param IDStations A string containing the column name in \code{data} that specifies the location corresponding to the row.
+#' @param Time A string containing the column name in \code{data} that specifies the time variable.
 #' @param x A string containing the column name in \code{data} that specifies the x-coordinate.
 #' @param y A string containing the column name in \code{data} that specifies the y-coordinate.
 #' @param nu A numeric value specifying nu for the Matérn correlation function. If not set, the default value is set to 0.5.
