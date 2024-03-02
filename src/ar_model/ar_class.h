@@ -53,7 +53,7 @@ private:
     std::pair<double, double> ab_w_prior = {2,4};
     std::pair<double, double> ab_0_prior = {2,4};
     // phi prior and candidate variance
-    std::pair<double, double> ab_phi_prior = {2,  4};
+    std::pair<double, double> ab_phi_prior;
     double phi_cand_var = 1;
 
     // matrices
@@ -107,6 +107,7 @@ public:
             std::vector<Eigen::VectorXd>& y_store,
             std::vector<Eigen::MatrixXd>& x_store,
             std::vector<coord>& coord_vec,
+            std::pair<double, double>& ab_phi_prior,
             double& nu
     );
 

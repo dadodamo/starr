@@ -3,9 +3,11 @@
 
 ar_model::ar_model(std::vector<Eigen::VectorXd> &y_store,
                    std::vector<Eigen::MatrixXd> &x_store, std::vector<coord> &coord_vec,
+                   std::pair<double, double>& ab_phi_prior,
                    double& nu) :
         y(y_store), X(x_store),
         coordinates(coord_vec),
+        ab_phi_prior(ab_phi_prior),
         nu(nu)
 {
     T = (X).size();
