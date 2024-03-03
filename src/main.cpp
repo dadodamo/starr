@@ -125,12 +125,14 @@ int main(int argc,char* argv[]) {
        }
 
     }
-    std::cout << "Sampling finished. Importing data from C++..." << std::endl;
-    a.serialize();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time elapsed = " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "[ms]" << std::endl;
 
+    double PMCC = a.calc_pmcc();
+    std::cout << "Sampling finished. Importing data from C++..." << std::endl;
+    a.serialize();
+    std::cout << "Importing data from C++ to R done!" << std::endl;
     std::cout << "phi acceptance rate: " << a.get_acceptance_rate() << std::endl;
-    std::cout << "PMCC: " <<a.calc_pmcc() << std::endl;
+    std::cout << "PMCC: " << PMCC << std::endl;
     return 0;
 }

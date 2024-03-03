@@ -25,13 +25,13 @@ run_code(
 
 \item{covariates}{A vector of strings containing the column names in \code{data} that shall be included as covariates.}
 
-\item{IDStations}{A string containing the column name in \code{data} that specifies the location corresponding to the row.}
+\item{IDStations}{A string containing the column name in \code{data} that specifies the location corresponding to each row.}
 
 \item{x}{A string containing the column name in \code{data} that specifies the x-coordinate.}
 
 \item{y}{A string containing the column name in \code{data} that specifies the y-coordinate.}
 
-\item{Time}{A string containing the column name in \code{data} that specifies the time variable.}
+\item{Time}{A string containing the column name in \code{data} that specifies the time variable. Can be in any sortable format.}
 
 \item{nu}{A numeric value specifying nu for the Matérn correlation function. If not set, the default value is set to 0.5.}
 
@@ -40,19 +40,21 @@ set to \code{c(2, 4)}.}
 
 \item{n_iter}{An integer value specifying the number of iterations to run. If not set, the default is 5000.}
 
-\item{burn_in}{A numeric value specifying nu for the Matérn correlation function. If not set, the default  is 1000.}
+\item{burn_in}{A numeric value specifying number of burn-in iterations. If not set, the default  is 1000.}
 }
 \value{
 A list with the following components:
 \itemize{
-\item{\strong{beta_samples} returns a data matrix of size \code{n_covariates} x 5000. The order of the rows correspond to the order specified by the user in \code{covariates}.}
-\item{\strong{rho_samples} returns a data vector of size 5000.}
-\item{\strong{sigw_samples} returns a data vector of size 5000.}
-\item{\strong{sigeps_samples} returns a data vector of size 5000.}
-\item{\strong{sig0_samples} returns a data vector of size 5000.}
-\item{\strong{phi_samples} returns a data vector of size 5000.}
-\item{\strong{mu0_samples} returns a data matrix of size \code{number_locations} x 5000. The rows are sorted by time, i.e., after sorting \code{data} by time, \code{mu0_samples[1]} will correspond to the first location
+\item{\strong{beta_samples} returns a data matrix of size \code{n_covariates} x \code{n_iter}. The order of the rows correspond to the order specified by the user in \code{covariates}.}
+\item{\strong{rho_samples} returns a data vector of size \code{n_iter}.}
+\item{\strong{sigw_samples} returns a data vector of size \code{n_iter}.}
+\item{\strong{sigeps_samples} returns a data vector of size \code{n_iter}.}
+\item{\strong{sig0_samples} returns a data vector of size \code{n_iter}.}
+\item{\strong{phi_samples} returns a data vector of size \code{n_iter}.}
+\item{\strong{mu0_samples} returns a data matrix of size \code{number_locations} x \code{n_iter}. The rows are sorted by time, i.e., after sorting \code{data} by time, \code{mu0_samples[1]} will correspond to the first location
 appearing at time t = 1, \code{mu0_samples[2]} to the second location at time t=1, and so on.}
+\item{\strong{y_fitted} returns a data matrix of size \code{number_locations} x \code{T} of the fitted values. The rows are sorted by time, i.e., after sorting \code{data} by time, \code{y_fitted[1]} will correspond to the first location
+appearing at time t = 1, \code{y_fitted[2]} to the second location at time t=1, and so on.}
 }
 }
 \description{
