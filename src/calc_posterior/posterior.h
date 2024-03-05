@@ -4,7 +4,7 @@
 #include "eigenmvn.h"
 #include<cmath>
 #include<../coordinates/coordinates.h>
-#include<../matern.h>
+#include<matern.h>
 #include<math.h>
 
 /// data type specified. maybe good in future to template the data structure class ?

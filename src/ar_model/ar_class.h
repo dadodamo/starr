@@ -5,7 +5,7 @@
 #include "Eigen/Dense"
 #include "eigenmvn.h"
 #include "../coordinates/coordinates.h"
-#include "../matern.h"
+#include "matern.h"
 #include "../build/proto/ydata.pb.h"
 #include "../build/proto/paramdata.pb.h"
 #include "../protocpp/serialize.h"

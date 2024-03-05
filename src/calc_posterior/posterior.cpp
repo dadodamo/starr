@@ -122,8 +122,6 @@ Eigen::VectorXd post::calc_mean_beta( const std::vector<Eigen::MatrixXd>& x_stor
         double sum_cand = 0;
         double sum_curr = 0;
         for (int t = 1; t < x_store.size(); ++t) {
-
-
             sum_cand +=  (o_store[t] - rho*o_store[t-1] - x_store[t-1]*beta).transpose()*cand_matern_inv *(o_store[t] - rho*o_store[t-1] - x_store[t-1]*beta);
             sum_curr += (o_store[t] - rho*o_store[t-1] - x_store[t-1]*beta).transpose()*curr_matern_inv *(o_store[t] - rho*o_store[t-1] - x_store[t-1]*beta);
         }
@@ -131,14 +129,8 @@ Eigen::VectorXd post::calc_mean_beta( const std::vector<Eigen::MatrixXd>& x_stor
         double log_cand_lkhd = (ab_phi_prior.first - 1)*log(cand_phi) - ab_phi_prior.second*cand_phi  - (x_store.size()/2.)*log(cand_matern_mat.determinant()) - (1/(2*sigma_w)) * sum_cand -0.5* log(cand_matern_mat.determinant())
                  -1/(2*sigma_0) *(o_store[0] - mu_0).transpose() *cand_matern_inv*(o_store[0] - mu_0);
 
-//        double log_cand_lkhd =  - (x_store.size()/2.)*log(cand_matern_mat.determinant()) - (1/(2*sigma_w)) * sum_cand -0.5* log(cand_matern_mat.determinant())
-//                               -1/(2*sigma_0) *(o_store[0] - mu_0).transpose() *cand_matern_inv*(o_store[0] - mu_0);
-
         double log_curr_lkhd =  (ab_phi_prior.first - 1)*log(curr_phi) - ab_phi_prior.second*curr_phi - (x_store.size()/2.)*log(curr_matern_mat.determinant())  -(1/(2*sigma_w)) * sum_curr -0.5* log(curr_matern_mat.determinant())
                 -1/(2*sigma_0) *(o_store[0] - mu_0).transpose() *curr_matern_inv*(o_store[0] - mu_0);
-//
-//        double log_curr_lkhd =   - (x_store.size()/2.)*log(curr_matern_mat.determinant())  - (1/(2*sigma_w)) * sum_curr -0.5* log(curr_matern_mat.determinant())
-//                                -(1/(2*sigma_0)) *(o_store[0] - mu_0).transpose() *curr_matern_inv*(o_store[0] - mu_0);
 
         return exp(log_cand_lkhd - log_curr_lkhd);
     }

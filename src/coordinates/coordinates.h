@@ -8,7 +8,7 @@
 #include<iostream>
 #include <cmath>
 #include<Eigen/Dense>
-#include<../matern.h>
+#include<matern.h>
 
 class coord {
 private:
