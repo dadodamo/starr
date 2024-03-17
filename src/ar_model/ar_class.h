@@ -97,6 +97,7 @@ private:
     std::normal_distribution<double> phi_sampler = std::normal_distribution<double>(0,1);
     std::uniform_real_distribution<double> unif = std::uniform_real_distribution<double>(0,1);
 
+    // protobuf streams
     sampler_data::samples sample_stream;
     y_data::full_y y_stream;
 
