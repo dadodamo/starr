@@ -49,9 +49,9 @@ private:
     double mu0_sig_prior = 1.;
 
     //inverse gamma group
-    std::pair<double, double> ab_eps_prior = {2,4};
-    std::pair<double, double> ab_w_prior = {2,4};
-    std::pair<double, double> ab_0_prior = {2,4};
+    std::pair<double, double> ab_eps_prior = {3,5};
+    std::pair<double, double> ab_w_prior = {3,5};
+    std::pair<double, double> ab_0_prior = {3,5};
     // phi prior and candidate variance
     std::pair<double, double> ab_phi_prior;
     double phi_cand_var = 1;
@@ -69,13 +69,14 @@ private:
 
     // phi MH step variables
     double phi_accept_count = 0;
-    unsigned int batch_count_50 = 1;
+    double phi_accept_batch_count = 0;
+    unsigned int batch_size = 25;
+    unsigned int batch_count = 1;
     double phi_s = 0;
 
     //iter count
     unsigned int iter_count = 0;
     unsigned int inclburn_iter_count = 0;
-    unsigned int phi_accept_batch_count = 0;
 
     // PMCC variables
     std::normal_distribution<double> pmcc_y_sampler = std::normal_distribution<double>(0,1);

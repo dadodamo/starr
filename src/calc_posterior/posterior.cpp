@@ -1,6 +1,6 @@
 #include "posterior.h"
 Eigen::VectorXd post::calc_mean_beta( const std::vector<Eigen::MatrixXd>& x_store_vec, Eigen::MatrixXd& covar_w_inv, std::vector<Eigen::VectorXd>& ot_store_vec, double& rho){
-        Eigen::VectorXd mean(x_store_vec[0].cols());
+        Eigen::VectorXd mean = Eigen::VectorXd::Zero(x_store_vec[0].cols());
         for (int t = 1; t < x_store_vec.size(); t++) {
             mean += x_store_vec[t-1].transpose() * covar_w_inv * (ot_store_vec[t] - rho*ot_store_vec[t-1]);
         }
@@ -8,9 +8,9 @@ Eigen::VectorXd post::calc_mean_beta( const std::vector<Eigen::MatrixXd>& x_stor
     };
     Eigen::MatrixXd post::calc_cov_beta(const std::vector<Eigen::MatrixXd>& x_store_vec, Eigen::MatrixXd& covar_w_inv, const double& sigma_beta_prior){
         auto id_mat = Eigen::MatrixXd::Identity(x_store_vec[0].cols(),x_store_vec[0].cols() );
-        Eigen::MatrixXd temp(x_store_vec[0].cols(), x_store_vec[0].cols());
+        Eigen::MatrixXd temp = Eigen::MatrixXd::Zero(x_store_vec[0].cols(), x_store_vec[0].cols());
         //iteration starts at first element of x_store_vec which is t = 1
-        for (int t = 0; t < x_store_vec.size()-1; ++t) {
+        for (int t = 0; t < x_store_vec.size(); ++t) {
             temp += x_store_vec[t].transpose() * covar_w_inv * x_store_vec[t];
         }
         temp +=  id_mat * 1/sigma_beta_prior;

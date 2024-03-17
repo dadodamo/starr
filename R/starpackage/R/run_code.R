@@ -68,7 +68,7 @@ run_code <- function(data, response, covariates, IDStations, x,y ,Time , nu = 0.
 
   ## N and T from data
   data[,IDStations] <- as.factor(data[,IDStations])
-  N <- length(levels(data[,IDStations]))
+  N <- length(unique(data[,IDStations]))
   time_interval <- length(unique(data[,Time]))
 
   ## sort data according to Time

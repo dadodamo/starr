@@ -127,7 +127,6 @@ void ar_model::sample() {
     o_store[0] = o_sampler.samples(1);
 
     //  now update the rest
-
     for (int t = 1; t < T; ++t) {
         Eigen::MatrixXd ot_update_cov = post::calc_cov_eff_t(sigma_eps,w_full_cov_inv, rho );
         Eigen::VectorXd ot_update_mean = ot_update_cov* post::calc_mean_eff_t(y[t-1],X[t-1], X[t],w_full_cov_inv, o_store[t-1], o_store[t+1], beta, rho, sigma_eps);
@@ -137,6 +136,7 @@ void ar_model::sample() {
 
     }
 //        //update last in o_store
+
     Eigen::MatrixXd oT_update_cov = post::calc_cov_eff_T(sigma_eps,w_full_cov_inv);;
     Eigen::VectorXd oT_update_mean =    oT_update_cov*post::calc_mean_eff_T(y[T-1], X[T-1], w_full_cov_inv, o_store[T-1],beta, rho, sigma_eps);
     o_sampler.setMean(oT_update_mean);
@@ -152,9 +152,7 @@ void ar_model::sample() {
     mu_0 = mu0_sampler.samples(1);
 
     //beta update
-
     Eigen::MatrixXd beta_update_cov = post::calc_cov_beta(X,w_full_cov_inv, beta_sig_prior);
-
     Eigen::VectorXd beta_update_mean = beta_update_cov * post::calc_mean_beta(X, w_full_cov_inv, o_store, rho);
     beta_sampler.setCovar(beta_update_cov);
     beta_sampler.setMean(beta_update_mean);
@@ -185,14 +183,14 @@ void ar_model::sample() {
     //phi MH step
     {
 
-        if(inclburn_iter_count % 20 == 0){
-            batch_count_50++;
-            double accept_rate = phi_accept_batch_count/20.;
+        if(inclburn_iter_count % batch_size == 0){
+            batch_count++;
+            double accept_rate = phi_accept_batch_count/batch_size;
             
             if(accept_rate < 0.44){
-                phi_s -= (0.1 < sqrt(1./batch_count_50)) ? 0.1 : sqrt(1./batch_count_50);
+                phi_s -= (0.1 < sqrt(1./batch_count)) ? 0.1 : sqrt(1./batch_count);
             } else {
-                phi_s += (0.1 < sqrt(1./batch_count_50)) ? 0.1 : sqrt(1./batch_count_50);
+                phi_s += (0.1 < sqrt(1./batch_count)) ? 0.1 : sqrt(1./batch_count);
             }
             phi_accept_batch_count = 0;
         }
@@ -215,7 +213,6 @@ void ar_model::sample() {
     //covariance update
 
     w_full_cov_inv =  matern_inv/sigma_w;
-
 }
 
 void ar_model::track_pmcc(){
@@ -225,15 +222,20 @@ void ar_model::track_pmcc(){
 };
 
 double ar_model::calc_pmcc(){
+
+    //fitted values 
+    fitted_y_values = sampled_y_sum/iter_count;
+    //emplace NA values with fitted 
+    for (std::pair<int,int>& p : na_values) {
+        y[p.first](p.second) = fitted_y_values(p.first * N + p.second);
+    }
     // create full vector of y
     Eigen::VectorXd full_y = Eigen::VectorXd::Zero(N*T);
     for(int i = 0; i < y.size(); ++i){
         full_y.segment(i*N, N) = y[i];
     }
     // calculate variance for each chain
-    fitted_y_values = sampled_y_sum/iter_count;
     Eigen::VectorXd pmcc_mean_sq = fitted_y_values.array().square();
-
     Eigen::VectorXd pmcc_var = (iter_count * pmcc_mean_sq  - 2* fitted_y_values.cwiseProduct(sampled_y_sum) + sampled_y_sum_sq)/iter_count;
     double pmcc = 0;
     for (int i = 0; i < N*T ; ++i) {
