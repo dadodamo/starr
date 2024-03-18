@@ -76,24 +76,24 @@ run_code <- function(data, response, covariates, IDStations, x,y ,Time , nu = 0.
 
 
   ## creating message for data parsing
-  msg_parsedata <- new(parsedata.input_data)
+  msg_parsedata <- RProtoBuf::new(parsedata.input_data)
 
   ##hyperparam
   msg_parsedata$N <- N
   msg_parsedata$T <- time_interval
 
   ## response vector
-  msg_parsedata$y <- new(parsedata.vector, vec_value =  as.vector(sorted_data[,response]))
+  msg_parsedata$y <- RProtoBuf::new(parsedata.vector, vec_value =  as.vector(sorted_data[,response]))
 
   ## covariate vector
   for(i in 1:length(covariates)){
-    temp <- new(parsedata.vector, vec_value = as.vector(sorted_data[,covariates[i]]))
+    temp <- RProtoBuf::new(parsedata.vector, vec_value = as.vector(sorted_data[,covariates[i]]))
     msg_parsedata$x$m_vec[[i]]<- temp
   }
 
   ## location vector
   for(i in 1:N){
-    location <- new(parsedata.location)
+    location <- RProtoBuf::new(parsedata.location)
     location$lat <- sorted_data[i, x];
     location$long <- sorted_data[i, y];
 
